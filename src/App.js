@@ -1,21 +1,38 @@
+import { getByDisplayValue } from "@testing-library/react";
 import "./App.css";
 import React, { useState } from "react";
 function App() {
   const [todo, setTodos] = useState([]);
   const [error, setError] = useState("");
   const [inputValue, setInputValue] = useState("");
-  const handleInput = (evnet) => {
-    setInputValue(evnet.target.value);
+  const [filter, setFilter] = useState("All");
+  const handleInput = (event) => {
+    setInputValue(event.target.value);
   };
   const handleAdd = () => {
     if (inputValue === "") {
-      setError("Please enter a value");
+      alert("Please enter a value");
     } else {
       setTodos([...todo, inputValue]);
       setInputValue("");
       setError("");
     }
+    
   };
+  const handlebox = (id) => {
+    const newTodo = todo.map((todo, index) => {
+      if (index === id) {
+        return { ...todo, status: "DONE" };
+      }else {
+        return todo;
+      }
+      
+    });
+    setTodos(newTodo);
+  }
+  const filter = (filter) => {
+    setFilter(filter);
+  }
 
   return (
     <div className="App">
@@ -31,19 +48,19 @@ function App() {
                 value={inputValue}
                 onChange={handleInput}
               />
-              {error.length > 1 && <div>{error}</div>}
               <button onClick={handleAdd}>ADD</button>
             </div>
             <div class="hair">
-              <div class="All">All</div>
+              <div class="All" onClick={() => filter} >All</div>
               <div class="Active">Active</div>
               <div class="Completed">Completed</div>
             </div>
           </div>
-          <div class="feet">{todo.map((todo) => {
-                return <div>{todo}</div>;
-              })}</div>
-          
+          <div class="feet" >
+            {todo.map((todo) => {
+              return <div>{todo}</div>;
+            })}
+          </div>
         </div>
         <div class="foot">Powered by Pinecone academy</div>
       </div>
