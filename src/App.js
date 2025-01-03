@@ -30,9 +30,6 @@ function App() {
     });
     setTodos(newTodo);
   }
-  const filter = (filter) => {
-    setFilter(filter);
-  }
 
   return (
     <div className="App">
