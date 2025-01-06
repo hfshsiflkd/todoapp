@@ -1,3 +1,6 @@
+* {
+  margin: 0;
+}
 .App {
   height: 100vh;
   width: 100vw;
@@ -151,7 +154,7 @@
 }
 .todo {
   width: 400px;
-  height: 32px;
+  height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -162,4 +165,15 @@
   text-align: left;
   text-decoration-skip-ink: none;
   font-family: 'Inter', sans-serif;
+  border: 1px solid #E4E4E7;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 0px 10px;
+}
+.todotext1 {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  padding: 5px;
+  border: 0px;
 }

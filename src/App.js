@@ -26,14 +26,23 @@ function App() {
     }
   };
   const handlebox = (id) => {
+
+    
     const newTodo = todo.map((todo) => {
       if (todo.id === id) {
-        return { ...todo, status: "Completed" };
+        console.log(todo.status == "Active" ? "Completed" : "Active" );
+        
+        return { ...todo, status: todo.status == "Active" ? "Completed" : "Active" };
+        
       } else {
         return todo;
       }
     });
+
+    setTodos(newTodo);
   };
+
+  
 
 
 
@@ -71,7 +80,7 @@ function App() {
               <div
                 className="Active"
                 onClick={() => handlefilterstate("Active")}
-                style={{ color: "red" }}
+                style={{ color: "" }}
               >
                 Active
               </div>
@@ -92,8 +101,9 @@ function App() {
               })
               .map((todo) => (
                 <div key={todo} className="todo">
-                  <input className="todotext1" type="checkbox"  onClick={() => handlebox(todo.id)} />
+                  <input className="todotext1" type="checkbox" checked={todo.status == "Completed"}  onChange={() => handlebox(todo.id)} />
                   <p className="todotext">{todo.text}</p>
+                  <button>DELETE</button>
                 </div>
               ))}
           </div>
