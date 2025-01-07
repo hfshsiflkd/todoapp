@@ -7,7 +7,6 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [filterstate, setFilterstate] = useState("All");
 
-
   const handleInput = (event) => {
     setInputValue(event.target.value);
   };
@@ -16,24 +15,27 @@ function App() {
   };
   const handleAdd = () => {
     console.log(todo);
-    
+
     if (inputValue === "") {
       alert("Please enter a value");
     } else {
-      setTodos([...todo, {text: inputValue, id: Date.now(), status: "Active"}]);
+      setTodos([
+        ...todo,
+        { text: inputValue, id: Date.now(), status: "Active" },
+      ]);
       setInputValue("");
       setError("");
     }
   };
   const handlebox = (id) => {
-
-    
     const newTodo = todo.map((todo) => {
       if (todo.id === id) {
-        console.log(todo.status == "Active" ? "Completed" : "Active" );
-        
-        return { ...todo, status: todo.status == "Active" ? "Completed" : "Active" };
-        
+        console.log(todo.status == "Active" ? "Completed" : "Active");
+
+        return {
+          ...todo,
+          status: todo.status == "Active" ? "Completed" : "Active",
+        };
       } else {
         return todo;
       }
@@ -42,21 +44,16 @@ function App() {
     setTodos(newTodo);
   };
 
-  
-
-
-
   console.log(filterstate);
-  const ll = todo
-  .filter((todo) => {
+  const ll = todo.filter((todo) => {
     if (filterstate === "All") {
       return true;
     } else {
       return todo.status === filterstate;
     }
-  })
+  });
   console.log(ll);
-  
+
   return (
     <div className="App">
       <div className="App-header">
@@ -101,14 +98,21 @@ function App() {
               })
               .map((todo) => (
                 <div key={todo} className="todo">
-                  <input className="todotext1" type="checkbox" checked={todo.status == "Completed"}  onChange={() => handlebox(todo.id)} />
+                  <input
+                    className="todotext1"
+                    type="checkbox"
+                    checked={todo.status == "Completed"}
+                    onChange={() => handlebox(todo.id)}
+                  />
                   <p className="todotext">{todo.text}</p>
-                  <button>DELETE</button>
+                  <button className="button"
+                  >DELETE</button>
                 </div>
               ))}
           </div>
         </div>
-        <div className="foot">Powered by Pinecone academy</div>
+        <div className="foot">Powered by    <p className="Pineconeacademy">
+         Pinecone academy</p></div>
       </div>
     </div>
   );
