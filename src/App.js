@@ -13,7 +13,8 @@ function App() {
   const handlefilterstate = (filterstate) => {
     setFilterstate(filterstate);
   };
-  const handleAdd = () => {
+  const handleAdd = (e) => {
+    e.preventDefault(); 
     console.log(todo);
 
     if (inputValue === "") {
@@ -44,7 +45,6 @@ function App() {
     setTodos(newTodo);
   };
 
-  console.log(filterstate);
   const ll = todo.filter((todo) => {
     if (filterstate === "All") {
       return true;
@@ -52,7 +52,26 @@ function App() {
       return todo.status === filterstate;
     }
   });
-  console.log(ll);
+  const handleDelete = (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this task?"
+    );
+    if (confirmDelete) {
+      setTodos(todo.filter((todo) => todo.id !== id));
+    }
+  };
+  const completedtaskcount = todo.filter(
+    (todo) => todo.status === "Completed"
+  ).length;
+  const handleclear = () => {
+    const confirmDelete1 = window.confirm(
+      "Are you sure you want to delete this task?"
+    );
+    if (confirmDelete1) {
+      setTodos(todo.filter((todo) => todo.status !== "Completed"));
+    }
+  };
+  
 
   return (
     <div className="App">
@@ -63,31 +82,52 @@ function App() {
               <h1>To-Do list</h1>
             </div>
             <div className="beak">
-              <input
+            <form onSubmit={handleAdd}>
+              <input id="myInput"
                 placeholder="Add to do"
                 value={inputValue}
                 onChange={handleInput}
               />
-              <button onClick={handleAdd}>ADD</button>
+              <button  id="myBtn" type="submit">
+                ADD
+              </button>
+              </form>
             </div>
             <div className="hair">
-              <div className="All" onClick={() => handlefilterstate("All")}>
+              <div
+                className="All"
+                onClick={() => handlefilterstate("All")}
+                style={{
+                  background: filterstate === "All" ? "#3B81F6" : "",
+                  color: filterstate === "All" ? "white" : "",
+                }}
+              >
                 All
               </div>
               <div
                 className="Active"
                 onClick={() => handlefilterstate("Active")}
-                style={{ color: "" }}
+                style={{
+                  background: filterstate === "Active" ? "#3B81F6" : "",
+                  color: filterstate === "Active" ? "white" : "",
+                }}
               >
                 Active
               </div>
               <div
                 className="Completed"
                 onClick={() => handlefilterstate("Completed")}
+                style={{
+                  background: filterstate === "Completed" ? "#3B81F6" : "",
+                  color: filterstate === "Completed" ? "white" : "",
+                }}
               >
                 Completed
               </div>
             </div>
+            {todo.length === 0 && (
+              <div className="notask">No tasks yet. Add one above</div>
+            )}
             {todo
               .filter((todo) => {
                 if (filterstate === "All") {
@@ -105,14 +145,32 @@ function App() {
                     onChange={() => handlebox(todo.id)}
                   />
                   <p className="todotext">{todo.text}</p>
-                  <button className="button"
-                  >DELETE</button>
+                  <button
+                    className="button"
+                    onClick={() => handleDelete(todo.id)}
+                  >
+                    Delete
+                  </button>
                 </div>
               ))}
+            {todo.length > 0 && (
+              <div className="footer">
+                <div className="completedtask">
+                  {completedtaskcount} of {todo.length} tasks completed
+                </div>
+                <button className="clearcompleted" onClick={handleclear}>
+                  Clear completed tasks
+                </button>
+              </div>
+            )}
           </div>
         </div>
-        <div className="foot">Powered by    <p className="Pineconeacademy">
-         Pinecone academy</p></div>
+        <div className="foot">
+          Powered by{" "}
+          <a className="Pineconeacademy" href="">
+            Pinecone academy
+          </a>
+        </div>
       </div>
     </div>
   );
