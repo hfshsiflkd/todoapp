@@ -1,19 +1,16 @@
-import { getByDisplayValue } from "@testing-library/react";
 import "./App.css";
 import React, { useState } from "react";
+import  Filter  from "./comport/Filter.js";
 function App() {
   const [todo, setTodos] = useState([]);
   const [error, setError] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [filterstate, setFilterstate] = useState("All");
-  const [log, setlog] = useState("");
 
   const handleInput = (event) => {
     setInputValue(event.target.value);
   };
-  const handlefilterstate = (filterstate) => {
-    setFilterstate(filterstate);
-  };
+  
   const handleAdd = (e) => {
     e.preventDefault();
     console.log(todo);
@@ -33,11 +30,11 @@ function App() {
   const handlebox = (id) => {
     const newTodo = todo.map((todo) => {
       if (todo.id === id) {
-        console.log(todo.status == "Active" ? "Completed" : "Active");
+        console.log(todo.status === "Active" ? "Completed" : "Active");
 
         return {
           ...todo,
-          status: todo.status == "Active" ? "Completed" : "Active",
+          status: todo.status === "Active" ? "Completed" : "Active",
         };
       } else {
         return todo;
@@ -47,7 +44,7 @@ function App() {
     setTodos(newTodo);
   };
 
-  const ll = todo.filter((todo) => {
+  const lucky = todo.filter((todo) => {
     if (filterstate === "All") {
       return true;
     } else {
@@ -95,48 +92,7 @@ function App() {
                 </button>
               </form>
             </div>
-            <div className="hair">
-              <div
-                className="All"
-                onClick={() => handlefilterstate("All")}
-                style={{
-                  background: filterstate === "All" ? "#3B81F6" : "",
-                  color: filterstate === "All" ? "white" : "",
-                }}
-              >
-                All
-              </div>
-              <div
-                className="Active"
-                onClick={() => handlefilterstate("Active")}
-                style={{
-                  background: filterstate === "Active" ? "#3B81F6" : "",
-                  color: filterstate === "Active" ? "white" : "",
-                }}
-              >
-                Active
-              </div>
-              <div
-                className="Completed"
-                onClick={() => handlefilterstate("Completed")}
-                style={{
-                  background: filterstate === "Completed" ? "#3B81F6" : "",
-                  color: filterstate === "Completed" ? "white" : "",
-                }}
-              >
-                Completed
-              </div>
-              <div
-                className="All"
-                onClick={() => handlefilterstate("log")}
-                style={{
-                  background: filterstate === "log" ? "#3B81F6" : "",
-                  color: filterstate === "log" ? "white" : "",
-                }}
-              >
-                Log
-              </div>
-            </div>
+            <Filter filterstate={filterstate} setFilterstate={setFilterstate}/>
             {todo.length === 0 && (
               <div className="notask">No tasks yet. Add one above</div>
             )}
@@ -153,14 +109,23 @@ function App() {
                   <input
                     className="todotext1"
                     type="checkbox"
-                    checked={todo.status == "Completed"}
-                    style={{textDecoration: todo.status == "Completed" ? "line-through" : "none"}}
+                    checked={todo.status === "Completed"}
+                    style={{
+                      textDecoration:
+                        todo.status === "Completed" ? "line-through" : "none",
+                    }}
                     onChange={() => handlebox(todo.id)}
                   />
 
-                  <p className="todotext"
-                  style={{textDecoration: todo.status == "Completed" ? "line-through" : "none"}}
-                  >{todo.text}</p>
+                  <p
+                    className="todotext"
+                    style={{
+                      textDecoration:
+                        todo.status === "Completed" ? "line-through" : "none",
+                    }}
+                  >
+                    {todo.text}
+                  </p>
                   <button
                     className="button"
                     onClick={() => handleDelete(todo.id)}
@@ -183,7 +148,7 @@ function App() {
         </div>
         <div className="foot">
           Powered by{" "}
-          <a className="Pineconeacademy" href="">
+          <a className="Pineconeacademy" href="https://pineconeacademy.mn/">
             Pinecone academy
           </a>
         </div>
