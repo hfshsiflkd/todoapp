@@ -6,6 +6,7 @@ function App() {
   const [error, setError] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [filterstate, setFilterstate] = useState("All");
+  const [log, setlog] = useState("");
 
   const handleInput = (event) => {
     setInputValue(event.target.value);
@@ -14,7 +15,7 @@ function App() {
     setFilterstate(filterstate);
   };
   const handleAdd = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     console.log(todo);
 
     if (inputValue === "") {
@@ -28,6 +29,7 @@ function App() {
       setError("");
     }
   };
+
   const handlebox = (id) => {
     const newTodo = todo.map((todo) => {
       if (todo.id === id) {
@@ -71,7 +73,6 @@ function App() {
       setTodos(todo.filter((todo) => todo.status !== "Completed"));
     }
   };
-  
 
   return (
     <div className="App">
@@ -82,15 +83,16 @@ function App() {
               <h1>To-Do list</h1>
             </div>
             <div className="beak">
-            <form onSubmit={handleAdd}>
-              <input id="myInput"
-                placeholder="Add to do"
-                value={inputValue}
-                onChange={handleInput}
-              />
-              <button  id="myBtn" type="submit">
-                ADD
-              </button>
+              <form onSubmit={handleAdd}>
+                <input
+                  id="myInput"
+                  placeholder="Add to do"
+                  value={inputValue}
+                  onChange={handleInput}
+                />
+                <button id="myBtn" type="submit">
+                  ADD
+                </button>
               </form>
             </div>
             <div className="hair">
@@ -124,6 +126,16 @@ function App() {
               >
                 Completed
               </div>
+              <div
+                className="All"
+                onClick={() => handlefilterstate("log")}
+                style={{
+                  background: filterstate === "log" ? "#3B81F6" : "",
+                  color: filterstate === "log" ? "white" : "",
+                }}
+              >
+                Log
+              </div>
             </div>
             {todo.length === 0 && (
               <div className="notask">No tasks yet. Add one above</div>
@@ -142,9 +154,13 @@ function App() {
                     className="todotext1"
                     type="checkbox"
                     checked={todo.status == "Completed"}
+                    style={{textDecoration: todo.status == "Completed" ? "line-through" : "none"}}
                     onChange={() => handlebox(todo.id)}
                   />
-                  <p className="todotext">{todo.text}</p>
+
+                  <p className="todotext"
+                  style={{textDecoration: todo.status == "Completed" ? "line-through" : "none"}}
+                  >{todo.text}</p>
                   <button
                     className="button"
                     onClick={() => handleDelete(todo.id)}
