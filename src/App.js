@@ -1,6 +1,8 @@
 import "./App.css";
 import React, { useState } from "react";
-import  Filter  from "./comport/Filter.js";
+import Filter from "./comport/Filter.js";
+import Handle from "./comport/Handle.js";
+
 function App() {
   const [todo, setTodos] = useState([]);
   const [error, setError] = useState("");
@@ -10,7 +12,7 @@ function App() {
   const handleInput = (event) => {
     setInputValue(event.target.value);
   };
-  
+
   const handleAdd = (e) => {
     e.preventDefault();
     console.log(todo);
@@ -51,6 +53,7 @@ function App() {
       return todo.status === filterstate;
     }
   });
+
   const handleDelete = (id) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this task?"
@@ -59,9 +62,11 @@ function App() {
       setTodos(todo.filter((todo) => todo.id !== id));
     }
   };
+
   const completedtaskcount = todo.filter(
     (todo) => todo.status === "Completed"
   ).length;
+
   const handleclear = () => {
     const confirmDelete1 = window.confirm(
       "Are you sure you want to delete this task?"
@@ -79,20 +84,12 @@ function App() {
             <div className="eyes">
               <h1>To-Do list</h1>
             </div>
-            <div className="beak">
-              <form onSubmit={handleAdd}>
-                <input
-                  id="myInput"
-                  placeholder="Add to do"
-                  value={inputValue}
-                  onChange={handleInput}
-                />
-                <button id="myBtn" type="submit">
-                  ADD
-                </button>
-              </form>
-            </div>
-            <Filter filterstate={filterstate} setFilterstate={setFilterstate}/>
+            <Handle
+              inputValue={inputValue}
+              handleInput={handleInput}
+              handleAdd={handleAdd}
+            />
+            <Filter filterstate={filterstate} setFilterstate={setFilterstate} />
             {todo.length === 0 && (
               <div className="notask">No tasks yet. Add one above</div>
             )}
@@ -105,7 +102,7 @@ function App() {
                 }
               })
               .map((todo) => (
-                <div key={todo} className="todo">
+                <div key={todo.id} className="todo">
                   <input
                     className="todotext1"
                     type="checkbox"
