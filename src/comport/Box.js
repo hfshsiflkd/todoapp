@@ -1,6 +1,6 @@
 import React from "react";
 
-const Map = (props) => {
+const Box = (props) => {
   const { setTodos, todo, filterstate } = props;
 
   const handlebox = (id) => {
@@ -63,4 +63,4 @@ const Map = (props) => {
   ));
 };
 
-export default Map;
+export default Box;

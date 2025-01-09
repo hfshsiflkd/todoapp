@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import Filter from "./comport/Filter.js";
 import Handle from "./comport/Handle.js";
-import Map from "./comport/Map.js";
+import Box from "./comport/Box.js";
 import Length from "./comport/Length.js";
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
             {todo.length === 0 && (
               <div className="notask">No tasks yet. Add one above</div>
             )}
-            <Map todo={todo} setTodos={setTodos} filterstate={filterstate} />
+            <Box todo={todo} setTodos={setTodos} filterstate={filterstate} />
             <Length setTodos={setTodos} todo={todo} />
           </div>
         </div>
