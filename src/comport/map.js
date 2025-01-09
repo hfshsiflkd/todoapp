@@ -1,7 +1,43 @@
 import React from "react";
 
-const Map = ({ todos, handlebox, handleDelete }) => {
-  return todos.map((todo) => (
+const Map = (props) => {
+  const { setTodos, todo, filterstate } = props;
+
+  const handlebox = (id) => {
+    const newTodo = todo.map((todo) => {
+      if (todo.id === id) {
+        console.log(todo.status === "Active" ? "Completed" : "Active");
+
+        return {
+          ...todo,
+          status: todo.status === "Active" ? "Completed" : "Active",
+        };
+      } else {
+        return todo;
+      }
+    });
+
+    setTodos(newTodo);
+  };
+
+  const handleDelete = (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this task?"
+    );
+    if (confirmDelete) {
+      setTodos(todo.filter((todo) => todo.id !== id));
+    }
+  };
+
+  const filter = todo.filter((todo_item) => {
+    if (filterstate === "All") {
+      return true;
+    } else {
+      return todo_item.status === filterstate;
+    }
+  });
+
+  return filter.map((todo) => (
     <div key={todo.id} className="todo">
       <input
         className="todotext1"

@@ -1,6 +1,27 @@
 import React from "react";
 
-const Handle = ({ inputValue, handleInput, handleAdd }) => {
+const Handle = (props) => {
+  const { setInputValue, inputValue, setTodos, setError, todo } = props;
+
+  const handleInput = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleAdd = (e) => {
+    e.preventDefault();
+
+    if (inputValue === "") {
+      alert("Please enter a value");
+    } else {
+      setTodos([
+        ...todo,
+        { text: inputValue, id: Date.now(), status: "Active" },
+      ]);
+      setInputValue("");
+      setError("");
+    }
+  };
+
   return (
     <div className="beak">
       <form onSubmit={handleAdd}>
