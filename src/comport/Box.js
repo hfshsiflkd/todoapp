@@ -46,9 +46,6 @@ console.log(props);
         className="todotext1"
         type="checkbox"
         checked={todo.status === "Completed"}
-        style={{
-          textDecoration: todo.status === "Completed" ? "line-through" : "none",
-        }}
         onChange={() => handlebox(todo.id)}
       />
       <p

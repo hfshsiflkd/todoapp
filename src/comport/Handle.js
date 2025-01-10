@@ -1,7 +1,8 @@
 import React from "react";
 
 const Handle = (props) => {
-  const { setInputValue, inputValue, setTodos, setError, todo } = props;
+  const { setInputValue, inputValue, setTodos, setError, todo,log, setlog};
+   } = props;
 
   const handleInput = (event) => {
     setInputValue(event.target.value);
@@ -20,6 +21,13 @@ const Handle = (props) => {
       setInputValue("");
       setError("");
     }
+     setlog (
+      [
+        ...log , {
+          taskdes
+        }
+      ]
+     )
   };
 
   return (

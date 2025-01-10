@@ -12,6 +12,7 @@ function App() {
   const [, setError] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [filterstate, setFilterstate] = useState("All");
+  const [log , setlog ] = useState ([]);
   
   return (
     <div className="App">
