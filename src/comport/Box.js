@@ -1,13 +1,13 @@
 import React from "react";
 
 const Box = (props) => {
-  const { setTodos, todo, filterstate } = props;
+  const { setTodos, todo, filterstate , } = props;
 
   const handlebox = (id) => {
+    // const task = todo.find((task) => task.id === id);
+    // const newStatus = task.status ==="Active" ? "Completed" : "Active";
     const newTodo = todo.map((todo) => {
       if (todo.id === id) {
-        console.log(todo.status === "Active" ? "Completed" : "Active");
-
         return {
           ...todo,
           status: todo.status === "Active" ? "Completed" : "Active",
@@ -18,6 +18,8 @@ const Box = (props) => {
     });
 
     setTodos(newTodo);
+    console.log(newTodo);
+    
   };
 
   const handleDelete = (id) => {
@@ -36,6 +38,7 @@ const Box = (props) => {
       return todo_item.status === filterstate;
     }
   });
+console.log(props);
 
   return filter.map((todo) => (
     <div key={todo.id} className="todo">
@@ -61,6 +64,9 @@ const Box = (props) => {
       </button>
     </div>
   ));
+  
 };
+
+
 
 export default Box;

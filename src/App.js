@@ -4,20 +4,21 @@ import Filter from "./comport/Filter.js";
 import Handle from "./comport/Handle.js";
 import Box from "./comport/Box.js";
 import Length from "./comport/Length.js";
+import Foot from "./comport/Foot.js";
+import Head from "./comport/Head.js"
 
 function App() {
   const [todo, setTodos] = useState([]);
   const [, setError] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [filterstate, setFilterstate] = useState("All");
+  
   return (
     <div className="App">
       <div className="App-header">
         <div className="main">
           <div className="head">
-            <div className="eyes">
-              <h1>To-Do list</h1>
-            </div>
+            <Head/>
             <Handle
               inputValue={inputValue}
               setInputValue={setInputValue}
@@ -33,12 +34,7 @@ function App() {
             <Length setTodos={setTodos} todo={todo} />
           </div>
         </div>
-        <div className="foot">
-          Powered by{" "}
-          <a className="Pineconeacademy" href="https://pineconeacademy.mn/">
-            Pinecone academy
-          </a>
-        </div>
+        <Foot />
       </div>
     </div>
   );
